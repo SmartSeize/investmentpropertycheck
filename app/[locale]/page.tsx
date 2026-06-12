@@ -6,17 +6,14 @@ import {
   alternateLanguages,
   isLocale,
   localeMetadata,
-  locales,
   type Locale,
 } from "../lib/i18n";
+
+export const runtime = "edge";
 
 type LocalePageProps = {
   params: Promise<{ locale: string }>;
 };
-
-export function generateStaticParams() {
-  return locales.map((locale) => ({ locale }));
-}
 
 export async function generateMetadata({ params }: LocalePageProps): Promise<Metadata> {
   const { locale: rawLocale } = await params;

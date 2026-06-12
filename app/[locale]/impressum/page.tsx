@@ -1,15 +1,13 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { absoluteLocalizedUrl, isLocale, locales, type Locale } from "../../lib/i18n";
+import { absoluteLocalizedUrl, isLocale, type Locale } from "../../lib/i18n";
+
+export const runtime = "edge";
 
 type LegalPageProps = {
   params: Promise<{ locale: string }>;
 };
-
-export function generateStaticParams() {
-  return locales.map((locale) => ({ locale }));
-}
 
 export async function generateMetadata({ params }: LegalPageProps): Promise<Metadata> {
   const { locale: rawLocale } = await params;
