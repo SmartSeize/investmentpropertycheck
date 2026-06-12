@@ -5,7 +5,7 @@ export type Locale = (typeof locales)[number];
 
 export const defaultLocale: Locale = "en";
 
-export const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://example.com";
+export const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://investmentpropertycheck.com";
 
 export const localeMetadata: Record<Locale, Pick<Metadata, "title" | "description">> = {
   de: {

@@ -3,8 +3,6 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { absoluteLocalizedUrl, isLocale, type Locale } from "../../lib/i18n";
 
-export const runtime = "edge";
-
 type LegalPageProps = {
   params: Promise<{ locale: string }>;
 };

@@ -1,8 +1,6 @@
 import type { MetadataRoute } from "next";
 import { absoluteLocalizedUrl, absoluteLocaleUrl, alternateLanguages, locales } from "./lib/i18n";
 
-export const runtime = "edge";
-
 export default function sitemap(): MetadataRoute.Sitemap {
   const calculatorPages = locales.map((locale) => ({
     url: absoluteLocaleUrl(locale),

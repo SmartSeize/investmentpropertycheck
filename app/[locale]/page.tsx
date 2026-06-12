@@ -9,8 +9,6 @@ import {
   type Locale,
 } from "../lib/i18n";
 
-export const runtime = "edge";
-
 type LocalePageProps = {
   params: Promise<{ locale: string }>;
 };
@@ -25,7 +23,7 @@ export async function generateMetadata({ params }: LocalePageProps): Promise<Met
   const locale: Locale = rawLocale;
 
   return {
-    metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL ?? "https://example.com"),
+    metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL ?? "https://investmentpropertycheck.com"),
     title: localeMetadata[locale].title,
     description: localeMetadata[locale].description,
     alternates: {

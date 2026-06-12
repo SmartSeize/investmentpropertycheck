@@ -4,8 +4,6 @@ import { notFound } from "next/navigation";
 import type { ReactNode } from "react";
 import { absoluteLocalizedUrl, isLocale, type Locale } from "../../lib/i18n";
 
-export const runtime = "edge";
-
 type PrivacyPageProps = {
   params: Promise<{ locale: string }>;
 };
