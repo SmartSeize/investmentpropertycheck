@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://investmentpropertycheck.com/sitemap.xml
