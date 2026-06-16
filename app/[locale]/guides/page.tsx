@@ -51,6 +51,13 @@ export default async function GuidesPage({ params }: GuidesPageProps) {
           <p className="mb-2 text-xs font-semibold uppercase tracking-[0.18em] text-[#2f6a57]">Guides</p>
           <h1 className="text-4xl font-semibold leading-tight sm:text-5xl">{guideIndexTitle}</h1>
           <p className="mt-4 max-w-3xl text-lg leading-8 text-[#5f5b52]">{guideIndexDescription}</p>
+          <p className="mt-4 max-w-3xl text-base leading-7 text-[#5f5b52]">
+            Start with the full investment property analysis guide, then use the rental yield, cash flow, cap rate and ROI articles to check specific parts of a deal. When you are ready to test your own numbers, open the{" "}
+            <Link className="font-semibold text-[#2f6a57]" href="/en">
+              rental property calculator
+            </Link>
+            .
+          </p>
         </header>
 
         <div className="mt-8 grid gap-4 md:grid-cols-2">
