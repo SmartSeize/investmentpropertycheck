@@ -39,38 +39,72 @@ type YieldYear = {
 
 const projectionYears = 30;
 const copyrightYear = 2026;
-const englishGuideLinks = [
-  {
-    href: "/en/guides",
-    title: "All investment property guides",
-    text: "Browse the full guide library for rental yield, cash flow, cap rate, ROI and property analysis.",
-  },
-  {
-    href: "/en/how-to-analyze-an-investment-property",
-    title: "How to Analyze an Investment Property",
-    text: "Learn a practical step-by-step framework for reviewing price, rent, costs, financing and risk.",
-  },
-  {
-    href: "/en/what-is-a-good-rental-yield",
-    title: "What Is a Good Rental Yield?",
-    text: "Understand gross yield, operating yield and how market context changes what good means.",
-  },
-  {
-    href: "/en/cap-rate-vs-roi",
-    title: "Cap Rate vs ROI",
-    text: "Compare property-level income metrics with investor-level return metrics after financing.",
-  },
-  {
-    href: "/en/rental-yield-formula",
-    title: "Rental Yield Formula",
-    text: "See the gross and net rental yield formulas with examples and common calculation mistakes.",
-  },
-  {
-    href: "/en/rental-property-cash-flow",
-    title: "Rental Property Cash Flow Explained",
-    text: "Learn how rent, operating costs, financing and break-even rent affect monthly cash flow.",
-  },
-];
+const guideLinks: Record<Locale, { href: string; title: string; text: string }[]> = {
+  en: [
+    {
+      href: "/en/guides",
+      title: "All investment property guides",
+      text: "Browse the full guide library for rental yield, cash flow, cap rate, ROI and property analysis.",
+    },
+    {
+      href: "/en/how-to-analyze-an-investment-property",
+      title: "How to Analyze an Investment Property",
+      text: "Learn a practical step-by-step framework for reviewing price, rent, costs, financing and risk.",
+    },
+    {
+      href: "/en/what-is-a-good-rental-yield",
+      title: "What Is a Good Rental Yield?",
+      text: "Understand gross yield, operating yield and how market context changes what good means.",
+    },
+    {
+      href: "/en/cap-rate-vs-roi",
+      title: "Cap Rate vs ROI",
+      text: "Compare property-level income metrics with investor-level return metrics after financing.",
+    },
+    {
+      href: "/en/rental-yield-formula",
+      title: "Rental Yield Formula",
+      text: "See the gross and net rental yield formulas with examples and common calculation mistakes.",
+    },
+    {
+      href: "/en/rental-property-cash-flow",
+      title: "Rental Property Cash Flow Explained",
+      text: "Learn how rent, operating costs, financing and break-even rent affect monthly cash flow.",
+    },
+  ],
+  de: [
+    {
+      href: "/de/ratgeber",
+      title: "Alle Ratgeber für Immobilieninvestments",
+      text: "Alle Ratgeber zu Mietrendite, Cashflow, Cap Rate, ROI, Finanzierung und Immobilienanalyse.",
+    },
+    {
+      href: "/de/immobilieninvestment-analysieren",
+      title: "Immobilieninvestment analysieren",
+      text: "Lerne, Kaufpreis, Miete, Kosten, Finanzierung, Cashflow und Risiko strukturiert zu prüfen.",
+    },
+    {
+      href: "/de/gute-mietrendite",
+      title: "Was ist eine gute Mietrendite?",
+      text: "Verstehe Bruttomietrendite, Nettomietrendite und warum der lokale Marktvergleich entscheidend ist.",
+    },
+    {
+      href: "/de/cap-rate-vs-roi",
+      title: "Cap Rate vs ROI",
+      text: "Vergleiche objektbezogene Kennzahlen mit Renditen nach Finanzierung und Eigenkapitaleinsatz.",
+    },
+    {
+      href: "/de/mietrendite-formel",
+      title: "Mietrendite berechnen",
+      text: "Sieh Formeln für Brutto- und Nettomietrendite mit Beispielen und typischen Rechenfehlern.",
+    },
+    {
+      href: "/de/cashflow-vermietungsimmobilie",
+      title: "Cashflow bei Vermietungsimmobilien",
+      text: "Erfahre, wie Miete, Kosten, Finanzierung und Break-even-Miete den monatlichen Cashflow bestimmen.",
+    },
+  ],
+};
 
 const fieldGroups: FieldGroup[] = [
   { id: "kauf", fields: [{ key: "kaufpreis", suffix: "eur", step: 5000, min: 0 }, { key: "nebenkosten", suffix: "percent", step: 0.5, min: 0 }, { key: "wohnflaeche", suffix: "sqm", step: 1, min: 0 }] },
@@ -445,7 +479,7 @@ export default function Calculator({ locale }: { locale: Locale }) {
           />
         </div>
 
-        {locale === "en" ? <GuideSection /> : null}
+        <GuideSection locale={locale} />
 
         <SeoSection title={seo.title} intro={seo.intro} items={seo.items} />
 
@@ -495,17 +529,21 @@ function seoText(locale: Locale) {
   };
 }
 
-function GuideSection() {
+function GuideSection({ locale }: { locale: Locale }) {
+  const de = locale === "de";
+
   return (
     <section className="mt-5 border-t border-[#d8d3c9] pt-5">
       <div className="max-w-4xl">
-        <h2 className="text-2xl font-semibold">Learn how to analyze investment properties</h2>
+        <h2 className="text-2xl font-semibold">{de ? "Lerne, wie du Immobilieninvestments analysierst" : "Learn how to analyze investment properties"}</h2>
         <p className="mt-2 text-base leading-7 text-[#5f5b52]">
-          Use these practical guides to understand rental yield, cash flow, cap rate, ROI and financing before comparing properties.
+          {de
+            ? "Nutze diese praxisnahen Ratgeber, um Mietrendite, Cashflow, Cap Rate, ROI und Finanzierung zu verstehen, bevor du Immobilien vergleichst."
+            : "Use these practical guides to understand rental yield, cash flow, cap rate, ROI and financing before comparing properties."}
         </p>
       </div>
       <div className="mt-4 grid gap-3 sm:grid-cols-2 xl:grid-cols-3">
-        {englishGuideLinks.map((guide) => (
+        {guideLinks[locale].map((guide) => (
           <Link key={guide.href} className="rounded-lg border border-[#d8d3c9] bg-white p-4 transition hover:border-[#2f6a57]" href={guide.href}>
             <h3 className="text-base font-semibold text-[#2f6a57]">{guide.title}</h3>
             <p className="mt-2 text-sm leading-6 text-[#5f5b52]">{guide.text}</p>

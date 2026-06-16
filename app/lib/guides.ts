@@ -1,11 +1,22 @@
-export type GuideSlug =
+import type { Locale } from "./i18n";
+
+export type GuideId =
   | "how-to-analyze-an-investment-property"
   | "what-is-a-good-rental-yield"
   | "cap-rate-vs-roi"
   | "rental-yield-formula"
   | "rental-property-cash-flow";
 
+export type GuideSlug =
+  | GuideId
+  | "immobilieninvestment-analysieren"
+  | "gute-mietrendite"
+  | "mietrendite-formel"
+  | "cashflow-vermietungsimmobilie";
+
 export type GuideArticle = {
+  id: GuideId;
+  locale: Locale;
   slug: GuideSlug;
   title: string;
   description: string;
@@ -19,11 +30,13 @@ export type GuideArticle = {
     question: string;
     answer: string;
   }[];
-  related: GuideSlug[];
+  related: GuideId[];
 };
 
 export const guideArticles: GuideArticle[] = [
   {
+    id: "how-to-analyze-an-investment-property",
+    locale: "en",
     slug: "how-to-analyze-an-investment-property",
     title: "How to Analyze an Investment Property",
     description: "A practical guide to analyzing a rental property with examples for price, rent, costs, financing, yield, cash flow and risk checks.",
@@ -97,6 +110,8 @@ export const guideArticles: GuideArticle[] = [
     related: ["rental-yield-formula", "rental-property-cash-flow", "cap-rate-vs-roi"],
   },
   {
+    id: "what-is-a-good-rental-yield",
+    locale: "en",
     slug: "what-is-a-good-rental-yield",
     title: "What Is a Good Rental Yield?",
     description: "Learn what a good rental yield means, with examples for gross yield, operating yield, market context, cash flow and risk.",
@@ -178,6 +193,8 @@ export const guideArticles: GuideArticle[] = [
     related: ["rental-yield-formula", "rental-property-cash-flow", "how-to-analyze-an-investment-property"],
   },
   {
+    id: "cap-rate-vs-roi",
+    locale: "en",
     slug: "cap-rate-vs-roi",
     title: "Cap Rate vs ROI: What Is the Difference?",
     description: "Compare cap rate and ROI for rental properties with examples showing property performance, leverage, cash flow and investor return.",
@@ -259,6 +276,8 @@ export const guideArticles: GuideArticle[] = [
     related: ["rental-property-cash-flow", "rental-yield-formula", "how-to-analyze-an-investment-property"],
   },
   {
+    id: "rental-yield-formula",
+    locale: "en",
     slug: "rental-yield-formula",
     title: "Rental Yield Formula for Investment Properties",
     description: "Rental yield formulas explained with examples for gross yield, net yield, operating yield, total cost and cash flow checks.",
@@ -340,6 +359,8 @@ export const guideArticles: GuideArticle[] = [
     related: ["what-is-a-good-rental-yield", "rental-property-cash-flow", "cap-rate-vs-roi"],
   },
   {
+    id: "rental-property-cash-flow",
+    locale: "en",
     slug: "rental-property-cash-flow",
     title: "Rental Property Cash Flow Explained",
     description: "Rental property cash flow explained with examples for rent, operating costs, financing, break-even rent and downside risk.",
@@ -422,15 +443,471 @@ export const guideArticles: GuideArticle[] = [
   },
 ];
 
-export const guideIndexTitle = "Investment Property Guides";
-export const guideIndexDescription = "Plain-English guides to rental yield, cash flow, cap rate, ROI and investment property analysis, with practical examples for comparing rental deals.";
+export const germanGuideArticles: GuideArticle[] = [
+  {
+    id: "how-to-analyze-an-investment-property",
+    locale: "de",
+    slug: "immobilieninvestment-analysieren",
+    title: "Immobilieninvestment analysieren",
+    description: "Praxisnaher Leitfaden zur Analyse einer Vermietungsimmobilie: Kaufpreis, Miete, Kosten, Finanzierung, Rendite, Cashflow und Risiko.",
+    intro: "Eine gute Analyse eines Immobilieninvestments besteht nicht aus einer einzigen Kennzahl. Entscheidend ist ein strukturierter Blick auf Kaufpreis, Erwerbsnebenkosten, Miete, laufende Kosten, Finanzierung, Cashflow und die Annahmen, die das Ergebnis verbessern oder verschlechtern können. Ziel ist, zu verstehen, was die Immobilie selbst erwirtschaftet, wie stark die Finanzierung den monatlichen Cashflow belastet und wie viel Puffer bleibt, wenn die Realität weniger freundlich ausfällt als die Verkaufsunterlagen.",
+    sections: [
+      {
+        title: "Beginne mit den vollständigen Erwerbskosten",
+        paragraphs: [
+          "Der Kaufpreis ist nur der Ausgangspunkt. In eine saubere Analyse gehören auch Erwerbsnebenkosten wie Grunderwerbsteuer, Notar, Grundbuch, Makler, Prüfungskosten und Arbeiten, die sofort nach dem Kauf notwendig sind. Wer Renditen nur auf den Kaufpreis rechnet, stellt ein Investment schnell zu positiv dar.",
+          "Ein Beispiel: Eine Wohnung kostet 250.000 und die Erwerbsnebenkosten liegen bei 10%. Damit beträgt der Kapitalbedarf vor Renovierung 275.000. Kommen 12.000 für sofortige Reparaturen hinzu, liegt die reale Ausgangsbasis bei 287.000. Eine Jahresnettomiete von 12.000 entspricht 4,8% Bruttomietrendite auf den Kaufpreis, aber nur 4,18% auf die vollständige Kostenbasis.",
+          "Diese Unterscheidung ist wichtig, weil auch Nebenkosten und Anfangsinvestitionen gebundenes Kapital sind. Sie müssen über Mieteinnahmen, Wertsteigerung, Tilgung oder eine Kombination daraus wieder verdient werden.",
+        ],
+      },
+      {
+        title: "Schätze die Miete konservativ",
+        paragraphs: [
+          "Nutze eine Miete, die durch Vergleichsangebote, bestehende Mietverträge und die lokale Nachfrage plausibel ist. Wenn ein Investment nur mit einer höheren Marktmiete funktioniert, sollte die aktuelle Situation getrennt von einem möglichen Upside-Szenario betrachtet werden.",
+          "Angenommen, die aktuelle Nettomiete beträgt 950 pro Monat, du hältst aber 1.100 für erreichbar. Die Differenz beträgt 150 monatlich oder 1.800 pro Jahr. Bei einem engen Deal kann genau diese Differenz der gesamte positive Cashflow sein. Rechne deshalb zuerst mit 950 und erst danach mit 1.100, wenn die Erhöhung realistisch und rechtlich möglich ist.",
+          "Die Bruttomiete hilft beim ersten Screening. Für die Entscheidung zählen aber Nettomiete, umlagefähige Kosten und nicht umlagefähige Eigentümerkosten. Eine Immobilie mit hoher Miete und hohen nicht umlagefähigen Kosten kann schwächer sein als ein Objekt mit niedrigerer Miete, aber klarer Kostenstruktur.",
+        ],
+      },
+      {
+        title: "Trenne operativen Cashflow und Finanzierung",
+        paragraphs: [
+          "Der operative Cashflow zeigt, ob die Immobilie vor Finanzierung funktioniert. Er startet bei der Nettomiete und zieht nicht umlagefähige Betriebskosten, Instandhaltung, Verwaltung, Leerstandsreserve und sonstige Eigentümerkosten ab. Damit siehst du die Einkommensqualität des Objekts unabhängig von deinem Darlehen.",
+          "Beispiel: Die monatliche Nettomiete beträgt 1.100. Nicht umlagefähige Kosten liegen bei 120, Instandhaltung und Verwaltung bei 130, zusätzlich planst du 50 Leerstandsreserve. Der operative Cashflow beträgt 800 pro Monat oder 9.600 pro Jahr. Liegt die Kreditrate inklusive Zins und Tilgung bei 920 pro Monat, entsteht nach Finanzierung ein negativer Cashflow von 120 pro Monat, obwohl die Immobilie operativ positiv ist.",
+          "Diese Trennung erleichtert den Vergleich. Zwei Käufer können unterschiedliche Eigenkapitalquoten, Zinsen und Tilgungen haben, aber das operative Ergebnis der Immobilie sollte auf derselben Grundlage beurteilt werden.",
+        ],
+      },
+      {
+        title: "Bewerte mehrere Kennzahlen zusammen",
+        paragraphs: [
+          "Keine Kennzahl erzählt die ganze Geschichte. Die Bruttomietrendite ist schnell, die Nettomietrendite realistischer, der Cashflow zeigt die monatliche Tragfähigkeit und die Eigenkapitalrendite zeigt den Effekt von Finanzierung und Tilgung. Je robuster ein Deal ist, desto weniger hängt er von einer optimistischen Annahme ab.",
+          "Nimm eine Immobilie mit 275.000 Gesamtkosten und 9.600 operativem Cashflow vor Finanzierung. Die Nettomietrendite liegt bei 3,49%. Wenn du 75.000 Eigenkapital einsetzt, im ersten Jahr 5.000 tilgst und der Cashflow nach Finanzierung bei minus 1.440 liegt, beträgt der Vermögensaufbau vor Wertsteigerung 3.560. Das entspricht 4,75% auf das eingesetzte Eigenkapital vor Steuern und Wertänderungen.",
+          "Ergänze immer Sensitivitäten. Was passiert, wenn die Miete 5% niedriger ist, Kosten 10% höher ausfallen, der Zinssatz steigt oder ein Monat Leerstand entsteht? Wenn eine kleine Änderung das Ergebnis kippt, müssen Kaufpreis oder Finanzierung kritisch geprüft werden.",
+        ],
+        bullets: [
+          "Gesamtkosten: Kaufpreis plus Erwerbsnebenkosten und Anfangsinvestitionen.",
+          "Bruttomietrendite: Jahresnettomiete geteilt durch Kaufpreis.",
+          "Nettomietrendite: operativer Jahres-Cashflow geteilt durch Gesamtkosten.",
+          "Cashflow nach Finanzierung: operativer Cashflow minus Zins und Tilgung.",
+          "Break-even-Miete: Miete, die Kosten und Finanzierung deckt.",
+        ],
+      },
+      {
+        title: "Leite daraus eine Entscheidung ab",
+        paragraphs: [
+          "Eine Analyse sollte zu einer klaren Entscheidung führen: kaufen, nachverhandeln, Finanzierung anpassen oder Abstand nehmen. Wenn die Zahlen nur mit Best-Case-Miete, niedriger Instandhaltung und hoher Wertsteigerung funktionieren, liegt das Risiko in Annahmen, die du nicht vollständig kontrollierst.",
+          "Nutze den Rechner, um Kaufpreis, Miete, Kosten und Finanzierung mit deinen eigenen Zahlen zu modellieren. Vergleiche das Ergebnis anschließend mit den Ratgebern zu Mietrendite, Cashflow und Cap Rate vs ROI, damit jede Kennzahl im richtigen Zusammenhang steht.",
+        ],
+      },
+    ],
+    faqs: [
+      {
+        question: "Welche Zahl sollte ich zuerst prüfen?",
+        answer: "Beginne mit den vollständigen Erwerbskosten, nicht nur mit dem Kaufpreis. Diese Basis ist entscheidend für Rendite, Kapitalbedarf und Finanzierungsbedarf.",
+      },
+      {
+        question: "Soll ich mit aktueller Miete oder Marktmiete rechnen?",
+        answer: "Rechne zuerst mit der aktuellen Miete und erst danach mit einem separaten Upside-Szenario. So erkennst du, ob der Deal heute funktioniert oder nur nach einer erfolgreichen Mietsteigerung.",
+      },
+      {
+        question: "Muss ein gutes Investment positiven Cashflow haben?",
+        answer: "Nicht zwingend. Negativer Cashflow muss aber bezahlbar, geplant und durch andere Faktoren wie Tilgung, Lagequalität oder realistische Wertentwicklung begründet sein.",
+      },
+      {
+        question: "Wie viele Szenarien sind sinnvoll?",
+        answer: "Mindestens ein Basisszenario, ein konservatives Szenario mit niedrigerer Miete oder höheren Kosten und ein Finanzierungsszenario mit stärkerer Belastung.",
+      },
+    ],
+    related: ["rental-yield-formula", "rental-property-cash-flow", "cap-rate-vs-roi"],
+  },
+  {
+    id: "what-is-a-good-rental-yield",
+    locale: "de",
+    slug: "gute-mietrendite",
+    title: "Was ist eine gute Mietrendite?",
+    description: "Erklärt, was eine gute Mietrendite ausmacht, mit Beispielen zu Bruttomietrendite, Nettomietrendite, Marktvergleich, Cashflow und Risiko.",
+    intro: "Eine gute Mietrendite passt zum lokalen Markt, deckt realistische Kosten, trägt die Finanzierung und lässt trotzdem Risikopuffer. Die richtige Höhe hängt von Lage, Objektart, Steuern, Instandhaltung, Leerstand, Finanzierung und den Erwartungen an die Wertentwicklung ab.",
+    sections: [
+      {
+        title: "Die Bruttomietrendite ist ein erster Filter",
+        paragraphs: [
+          "Die Bruttomietrendite vergleicht die Jahresnettomiete mit dem Kaufpreis. Sie eignet sich, um viele Angebote schnell zu filtern, weil nur zwei Eingaben nötig sind. Sie ignoriert aber Erwerbsnebenkosten, Betriebskosten, Leerstand, Reparaturen und Finanzierung.",
+          "Beispiel: Eine Wohnung bringt 1.200 Nettomiete pro Monat, also 14.400 pro Jahr. Bei einem Kaufpreis von 300.000 ergibt das 4,8% Bruttomietrendite. In einem Markt kann das attraktiv sein, in einem anderen schwach. Die Prozentzahl allein sagt noch nicht, ob die Immobilie nach Kosten und Kreditrate tragfähig ist.",
+          "Gerade weil die Bruttomietrendite so einfach ist, kann sie ein Objekt zu positiv darstellen. Zwei Immobilien mit gleicher Bruttomietrendite können völlig unterschiedliche Ergebnisse liefern, wenn Kosten, Instandhaltung oder Erwerbsnebenkosten abweichen.",
+        ],
+      },
+      {
+        title: "Die Nettomietrendite ist aussagekräftiger",
+        paragraphs: [
+          "Für eine Kaufentscheidung ist die Nettomietrendite meistens wichtiger. Dabei werden laufende Eigentümerkosten von der Miete abgezogen und der verbleibende operative Jahres-Cashflow ins Verhältnis zu den vollständigen Erwerbskosten gesetzt.",
+          "Beim 300.000-Beispiel kommen 30.000 Erwerbsnebenkosten hinzu. Die Gesamtkosten liegen also bei 330.000. Die Jahresnettomiete beträgt 14.400, aber nicht umlagefähige Kosten, Instandhaltung und Leerstandsreserve summieren sich auf 4.200 pro Jahr. Der operative Cashflow vor Finanzierung beträgt 10.200. Die Nettomietrendite liegt damit bei 3,09%.",
+          "Diese niedrigere Zahl ist meist nützlicher als die 4,8% Bruttomietrendite, weil sie zeigt, was das Objekt nach wiederkehrenden Kosten vor Finanzierung erwirtschaftet.",
+        ],
+      },
+      {
+        title: "Der Marktvergleich entscheidet",
+        paragraphs: [
+          "Niedrigere Renditen in starken Lagen können durch geringeres Leerstandsrisiko, bessere Liquidität, stabilere Mieterstruktur oder höhere erwartete Wertentwicklung begründet sein. Höhere Renditen können mehr laufendes Einkommen bieten, gehen aber oft mit mehr Instandhaltung, höherem Leerstand oder schwierigerem Wiederverkauf einher.",
+          "Eine 3,5% Nettomietrendite in einer stabilen Innenstadtlage kann vernünftig sein, wenn die Finanzierung konservativ ist. Eine 7% Bruttomietrendite in einem schwächeren Markt kann trotzdem unattraktiv sein, wenn das Gebäude regelmäßig Kapital bindet oder die Mieten unsicher sind.",
+          "Eine gute Mietrendite ist deshalb nicht automatisch die höchste Mietrendite. Gut ist eine Rendite, die nach realistischen Kosten und Stresstests noch überzeugt.",
+        ],
+      },
+      {
+        title: "Rendite und Cashflow gehören zusammen",
+        paragraphs: [
+          "Die Mietrendite hilft beim Vergleich von Immobilien. Der monatliche Cashflow zeigt, ob das Objekt mit deiner Finanzierung tragfähig ist. Eine Immobilie kann eine akzeptable Nettomietrendite haben und trotzdem negativen Cashflow erzeugen, wenn Zins und Tilgung hoch sind.",
+          "Wenn 10.200 operativer Jahres-Cashflow 850 pro Monat entsprechen und die Kreditrate 980 beträgt, liegt der Cashflow vor Steuern bei minus 130 pro Monat. Bei einer Rate von 760 ist derselbe Deal plus 90 pro Monat. Die Rendite vor Finanzierung ist gleich, die Liquidität aber nicht.",
+          "Vergleiche vor dem Kauf Bruttomietrendite, Nettomietrendite, Cashflow nach Finanzierung und Break-even-Miete. Zusammen zeigen sie deutlich mehr als eine einzelne Kennzahl.",
+        ],
+      },
+      {
+        title: "Baue dir einen lokalen Vergleichswert",
+        paragraphs: [
+          "Ein praktischer Ansatz ist ein kleiner lokaler Benchmark. Suche fünf bis zehn vergleichbare Wohnungen in ähnlicher Lage, Größe, Ausstattung und Mieterstruktur. Schätze zuerst die Bruttomietrendite und prüfe bei den interessanten Objekten anschließend Kosten und Erwerbsnebenkosten.",
+          "Wenn vergleichbare Objekte zwischen 4,2% und 4,8% Bruttomietrendite liegen, ist ein Angebot mit 5,3% interessant, aber nicht automatisch besser. Die höhere Rendite kann auf einen guten Preis hinweisen, aber auch auf Instandhaltungsstau, zu optimistische Miete, schwächere Mikrolage oder höheres Leerstandsrisiko.",
+          "Der lokale Vergleich schützt vor pauschalen Faustregeln. Eine Rendite, die in einer Stadt stark ist, kann in einer anderen durchschnittlich sein.",
+        ],
+      },
+      {
+        title: "Vergiss größere Investitionen nicht",
+        paragraphs: [
+          "Viele Renditerechnungen unterschätzen größere Ausgaben, weil sie nicht monatlich auftreten. Dach, Heizung, Fassade, Gemeinschaftseigentum, Einbaugeräte oder Sonderumlagen können die reale Rendite stark reduzieren.",
+          "Wenn eine Immobilie 2.400 jährlichen Überschuss zeigt, du aber in fünf Jahren 12.000 Reparaturen erwartest, entspricht das rechnerisch 2.400 pro Jahr. Der scheinbare Überschuss ist dann im Grunde die Reparaturrücklage. Eine gute Mietrendite sollte auch solche unregelmäßigen Kosten tragen können.",
+        ],
+      },
+    ],
+    faqs: [
+      {
+        question: "Ist eine höhere Mietrendite immer besser?",
+        answer: "Nein. Eine höhere Rendite kann mit höherem Leerstand, mehr Instandhaltung, schwächerer Lage oder höherem Wiederverkaufsrisiko verbunden sein.",
+      },
+      {
+        question: "Soll ich Brutto- oder Nettomietrendite nutzen?",
+        answer: "Für das schnelle Screening ist die Bruttomietrendite nützlich. Für Entscheidungen ist die Nettomietrendite meist aussagekräftiger, weil laufende Eigentümerkosten berücksichtigt werden.",
+      },
+      {
+        question: "Kann eine gute Mietrendite trotzdem negativen Cashflow haben?",
+        answer: "Ja. Wenn die Finanzierung teuer oder die Tilgung hoch ist, kann der monatliche Cashflow trotz akzeptabler Objektrendite negativ sein.",
+      },
+      {
+        question: "Womit sollte ich die Mietrendite vergleichen?",
+        answer: "Mit ähnlichen lokalen Objekten, Finanzierungskosten, Risiko, Instandhaltungsbedarf und alternativen Einsatzmöglichkeiten deines Eigenkapitals.",
+      },
+    ],
+    related: ["rental-yield-formula", "rental-property-cash-flow", "how-to-analyze-an-investment-property"],
+  },
+  {
+    id: "cap-rate-vs-roi",
+    locale: "de",
+    slug: "cap-rate-vs-roi",
+    title: "Cap Rate vs ROI: der Unterschied",
+    description: "Cap Rate und ROI bei Immobilien erklärt: Objektkennzahl, Finanzierungseffekt, Cashflow, Tilgung und Eigenkapitalrendite mit Beispielen.",
+    intro: "Cap Rate und ROI beantworten unterschiedliche Fragen. Die Cap Rate betrachtet die Immobilie vor Finanzierung. Der ROI betrachtet das Ergebnis für den Investor nach Eigenkapital, Finanzierung, Tilgung und teilweise Wertentwicklung. Wer beides vermischt, kann ein Objekt besser oder schlechter einschätzen, als es wirklich ist.",
+    sections: [
+      {
+        title: "Die Cap Rate bewertet das Objekt",
+        paragraphs: [
+          "Die Cap Rate wird üblicherweise als Net Operating Income geteilt durch Kaufpreis oder Marktwert berechnet. Sie soll zeigen, wie viel laufendes Einkommen die Immobilie unabhängig von der konkreten Finanzierung erzeugt.",
+          "Beispiel: Eine Immobilie erzielt 18.000 Jahresmiete und hat 6.000 operative Kosten vor Finanzierung. Das Net Operating Income beträgt 12.000. Bei einem Kaufpreis von 300.000 liegt die Cap Rate bei 4%. Erzielt ein vergleichbares Objekt 15.000 NOI bei gleichem Preis, liegt die Cap Rate bei 5%.",
+          "Damit eignet sich die Cap Rate zum Vergleich von Objekten. Bei ähnlicher Lage und ähnlichem Risiko zeigt sie, welches Objekt mehr operatives Einkommen im Verhältnis zum Preis liefert.",
+        ],
+      },
+      {
+        title: "Der ROI misst das Investorenergebnis",
+        paragraphs: [
+          "Der Return on Investment vergleicht den Gewinn oder Vermögensaufbau mit dem eingesetzten Kapital. Bei Immobilien kann der ROI Cashflow nach Finanzierung, Tilgung und teilweise Wertsteigerung enthalten.",
+          "Nutzen wir das 300.000-Objekt mit 12.000 NOI. Der Käufer setzt 80.000 Eigenkapital ein und finanziert den Rest. Wenn Zins und Tilgung im ersten Jahr 13.200 betragen, liegt der Cashflow nach Finanzierung bei minus 1.200. Enthält die Rate 5.000 Tilgung, beträgt der Vermögensaufbau vor Wertsteigerung 3.800. Auf 80.000 Eigenkapital sind das 4,75% vor Steuern und Wertänderungen.",
+          "Weil der ROI Finanzierungseffekte enthält, reagiert er stark auf Eigenkapitalquote, Zinssatz, Tilgung und Darlehensstruktur. Dasselbe Objekt kann für zwei Käufer unterschiedliche ROI-Werte haben.",
+        ],
+      },
+      {
+        title: "Warum beide Kennzahlen auseinanderlaufen",
+        paragraphs: [
+          "Ein Objekt kann eine starke Cap Rate haben und trotzdem einen schwachen ROI liefern, wenn die Finanzierung teuer ist oder sehr viel Eigenkapital gebunden wird. Umgekehrt kann ein Objekt mit mittelmäßiger Objektrendite durch hohen Fremdkapitaleinsatz eine starke Eigenkapitalrendite zeigen, aber mehr Risiko tragen.",
+          "Eine 5% Cap Rate kann bei hoher Kreditrate negativen Cashflow erzeugen. Eine 3,5% Cap Rate kann mit aggressiver Finanzierung und angenommener Wertsteigerung eine hohe Eigenkapitalrendite zeigen. Der erste Fall ist möglicherweise solider, als er aussieht; der zweite riskanter, als die ROI-Zahl vermuten lässt.",
+          "Deshalb ist die Cap Rate eher eine Objektkennzahl, während ROI und Eigenkapitalrendite das käuferspezifische Ergebnis beschreiben.",
+        ],
+      },
+      {
+        title: "Nutze jede Kennzahl für die passende Entscheidung",
+        paragraphs: [
+          "Nutze Cap Rate oder Nettomietrendite, um Immobilien vor Finanzierung zu vergleichen. Nutze ROI, Eigenkapitalrendite und Cashflow nach Finanzierung, um zu prüfen, ob ein konkreter Deal zu deinem Kapital, deiner Finanzierung und deinem Risiko passt.",
+          "Ein sinnvoller Ablauf: zuerst über Bruttomietrendite screenen, ernsthafte Kandidaten über Nettomietrendite oder Cap Rate vergleichen und die finale Auswahl mit Cashflow nach Finanzierung und Eigenkapitalrendite prüfen.",
+          "Wenn ein Deal nur durch aggressive Finanzierung oder optimistische Wertsteigerung funktioniert, sollte die Analyse das sichtbar machen, statt es in einer einzigen Renditekennzahl zu verstecken.",
+        ],
+      },
+      {
+        title: "Cap Rate, Mietrendite und Rechner",
+        paragraphs: [
+          "Bei Wohnimmobilien sprechen Investoren im deutschsprachigen Raum häufiger von Mietrendite als von Cap Rate. Die Logik ist ähnlich: Einkommen wird ins Verhältnis zu Kaufpreis oder Gesamtkosten gesetzt. Entscheidend ist, ob Bruttomiete, operativer Cashflow, Kaufpreis oder vollständige Erwerbskosten verwendet werden.",
+          "Nutze den Rechner für die objektbezogene Cashflow- und Renditeanalyse und diesen Ratgeber, um einzuordnen, ob die Kennzahl das Objekt selbst oder dein gehebeltes Investorenergebnis beschreibt.",
+        ],
+      },
+      {
+        title: "Ein Vergleich zweier Objekte",
+        paragraphs: [
+          "Zwei Immobilien kosten jeweils 300.000. Objekt A erzielt 12.000 NOI und hat damit 4% Cap Rate. Objekt B erzielt 15.000 NOI und hat 5% Cap Rate. Vor Finanzierung sieht Objekt B stärker aus, weil es mehr Einkommen zum gleichen Preis liefert.",
+          "Nun kann Objekt A wegen stärkerer Lage und besserer Beleihbarkeit günstiger finanziert werden. Objekt A erzeugt vielleicht nur 50 negativen Cashflow pro Monat, während Objekt B trotz höherer Cap Rate 120 negativen Cashflow hat. Die bessere Objektkennzahl führt nicht automatisch zum besseren Investorenergebnis.",
+          "Cap Rate und ROI sollten deshalb zusammen gelesen werden: Die Cap Rate zeigt die Einkommensqualität des Objekts, der ROI zeigt, was nach Finanzierung, Tilgung, Wertannahmen und Cashflow mit deinem Kapital passiert.",
+        ],
+      },
+      {
+        title: "Vorsicht mit Wertsteigerung im ROI",
+        paragraphs: [
+          "Der ROI kann stark steigen, wenn Wertsteigerung eingerechnet wird. Wenn 80.000 Eigenkapital von 9.000 jährlicher Wertsteigerung profitieren, sieht die Rendite schnell sehr gut aus, auch wenn der laufende Cashflow schwach ist.",
+          "Diszipliniert ist es, laufende Rendite, Finanzierungseffekt, Tilgung und Wertsteigerung getrennt auszuweisen. Dann wird sichtbar, ob der Deal heute durch Miete getragen wird oder vor allem auf einen späteren Verkauf setzt.",
+        ],
+      },
+    ],
+    faqs: [
+      {
+        question: "Ist Cap Rate dasselbe wie Mietrendite?",
+        answer: "Nicht ganz. Die Cap Rate nutzt meist Net Operating Income, während Mietrendite je nach Formel Bruttomiete oder operativen Cashflow verwenden kann.",
+      },
+      {
+        question: "Enthält die Cap Rate die Kreditrate?",
+        answer: "Normalerweise nein. Die Cap Rate wird vor Finanzierung berechnet, damit Objekte ohne käuferspezifische Darlehensbedingungen vergleichbar sind.",
+      },
+      {
+        question: "Warum kann der ROI höher sein als die Cap Rate?",
+        answer: "Der ROI kann durch Fremdkapital, Tilgung und Wertsteigerungsannahmen steigen. Das kann sinnvoll sein, macht den ROI aber abhängig von Finanzierung und Annahmen.",
+      },
+      {
+        question: "Welche Kennzahl nutze ich zuerst?",
+        answer: "Zuerst Cap Rate oder Nettomietrendite zur Objektbewertung. Danach ROI und Cashflow nach Finanzierung, wenn Eigenkapital und Darlehen feststehen.",
+      },
+    ],
+    related: ["rental-property-cash-flow", "rental-yield-formula", "how-to-analyze-an-investment-property"],
+  },
+  {
+    id: "rental-yield-formula",
+    locale: "de",
+    slug: "mietrendite-formel",
+    title: "Mietrendite berechnen: Formel und Beispiele",
+    description: "Formeln für Bruttomietrendite, Nettomietrendite und operative Rendite mit Beispielen zu Kaufpreis, Erwerbsnebenkosten, Kosten und Cashflow.",
+    intro: "Die Mietrendite setzt Mieteinnahmen ins Verhältnis zum Kaufpreis oder zu den vollständigen Erwerbskosten einer Immobilie. Die Formel ist einfach, aber nur dann nützlich, wenn die Eingaben zur Entscheidung passen. Für ein erstes Screening reichen Kaufpreis und Miete. Für eine Kaufentscheidung sollten Erwerbsnebenkosten und laufende Eigentümerkosten einbezogen werden.",
+    sections: [
+      {
+        title: "Formel für die Bruttomietrendite",
+        paragraphs: [
+          "Die Bruttomietrendite lautet: Jahresnettomiete geteilt durch Kaufpreis mal 100. Wenn eine Wohnung 1.000 pro Monat einbringt und 250.000 kostet, beträgt die Jahresnettomiete 12.000 und die Bruttomietrendite 4,8%.",
+          "Die Rechnung ist also: 12.000 / 250.000 x 100 = 4,8%. Das ist schnell und hilfreich, wenn viele Angebote mit wenigen Daten verglichen werden.",
+          "Der Nachteil: Die Bruttomietrendite ignoriert Erwerbsnebenkosten, Leerstand, Reparaturen, nicht umlagefähige Kosten, Steuern und Finanzierung. Sie ist ein erster Filter, keine finale Entscheidung.",
+        ],
+      },
+      {
+        title: "Formel für Nettomietrendite oder operative Rendite",
+        paragraphs: [
+          "Praxisnäher ist die Nettomietrendite: operativer Jahres-Cashflow vor Finanzierung geteilt durch vollständige Erwerbskosten mal 100. Operativer Cashflow bedeutet meist Jahresnettomiete minus nicht umlagefähige Kosten, Instandhaltung, Verwaltung, Leerstandsreserve und weitere laufende Eigentümerkosten.",
+          "Angenommen, die 250.000-Wohnung hat 25.000 Erwerbsnebenkosten. Die Gesamtkosten liegen bei 275.000. Die Jahresnettomiete beträgt 12.000, aber laufende nicht umlagefähige Kosten und Rücklagen betragen 3.300. Der operative Cashflow vor Finanzierung liegt bei 8.700. Die Nettomietrendite beträgt 8.700 / 275.000 x 100 = 3,16%.",
+          "Diese Zahl ist niedriger als die Bruttomietrendite, aber deutlich aussagekräftiger. Sie zeigt, was das Objekt vor Finanzierung wirklich erwirtschaftet.",
+        ],
+      },
+      {
+        title: "Welche Kostenbasis ist richtig?",
+        paragraphs: [
+          "Nutze den Kaufpreis, wenn du schnell einen Marktvergleich machen willst. Nutze vollständige Erwerbskosten, wenn du entscheiden willst, ob ein konkretes Objekt für dich funktioniert. Geplante Sofortmaßnahmen sollten entweder in die Kostenbasis aufgenommen oder separat analysiert werden.",
+          "Beispiel: Objekt A kostet 250.000 plus 25.000 Nebenkosten. Objekt B kostet 260.000 plus nur 10.000 Nebenkosten. Beide bringen 1.000 Miete pro Monat. Auf Kaufpreis wirkt Objekt A besser, auf vollständige Kostenbasis kann Objekt B attraktiver sein.",
+          "Wichtig ist Konsistenz. Wer ein Objekt auf Kaufpreis und ein anderes auf Gesamtkosten rechnet, vergleicht nicht sauber.",
+        ],
+      },
+      {
+        title: "Mietrendite ist nicht Cashflow",
+        paragraphs: [
+          "Die Mietrendite misst Einkommen im Verhältnis zu Kosten. Cashflow misst den monatlichen Überschuss oder Fehlbetrag in Euro. Ein Objekt kann eine akzeptable Nettomietrendite haben und nach Finanzierung trotzdem negativ sein.",
+          "Wenn der operative Cashflow 725 pro Monat beträgt und die Kreditrate 850, liegt der Cashflow nach Finanzierung bei minus 125. Reduziert mehr Eigenkapital die Rate auf 650, wird derselbe Deal plus 75 pro Monat. Die Objektrendite vor Finanzierung bleibt gleich, das monatliche Ergebnis ändert sich.",
+          "Nutze die Mietrendite zum Vergleich von Immobilien und den Cashflow, um zu prüfen, ob Miete, Kosten, Zins und Tilgung zusammen tragfähig sind.",
+        ],
+      },
+      {
+        title: "Häufige Fehler bei der Formel",
+        paragraphs: [
+          "Der häufigste Fehler ist das Mischen von Monats- und Jahreszahlen. Eine Monatsmiete muss mit 12 multipliziert werden, bevor sie durch den Kaufpreis geteilt wird. Ein weiterer Fehler ist, bei einem Objekt Bruttomiete und beim anderen Nettomiete zu verwenden.",
+          "Auch Erwerbsnebenkosten werden oft vergessen. In Märkten mit hohen Kaufnebenkosten gehören sie in eine ernsthafte Kaufentscheidung. Der Rechner hilft, Kaufpreis, Erwerbsnebenkosten, Miete, laufende Kosten und Finanzierung in einem Modell zusammenzuführen.",
+        ],
+      },
+      {
+        title: "Vergleich zweier Objekte",
+        paragraphs: [
+          "Objekt A kostet 240.000 und bringt 950 Miete pro Monat. Die Jahresnettomiete beträgt 11.400, die Bruttomietrendite 4,75%. Objekt B kostet 280.000 und bringt 1.150 pro Monat. Die Jahresnettomiete beträgt 13.800, die Bruttomietrendite 4,93%. Brutto sieht Objekt B leicht besser aus.",
+          "Jetzt kommen Kosten dazu. Objekt A hat 24.000 Erwerbsnebenkosten und 2.700 jährliche Eigentümerkosten. Die operative Rendite beträgt 8.700 / 264.000 = 3,30%. Objekt B hat 36.000 Erwerbsnebenkosten und 4.500 jährliche Kosten. Die operative Rendite beträgt 9.300 / 316.000 = 2,94%. Die Rangfolge dreht sich.",
+          "Die Formel ist also nur so gut wie ihre Eingaben. Entscheide zuerst, ob du screenst oder kaufen willst, und nutze dann über alle Objekte hinweg dieselbe Definition von Miete und Kostenbasis.",
+        ],
+      },
+      {
+        title: "Wo die Finanzierung dazugehört",
+        paragraphs: [
+          "Die Finanzierung sollte meist nach der Mietrendite analysiert werden, nicht in der ersten Renditeformel. Sonst erhalten zwei Käufer für dasselbe Objekt unterschiedliche Renditen, nur weil sie unterschiedliche Darlehen nutzen.",
+          "Nachdem die Mietrendite zeigt, ob das Objekt im Verhältnis zum Preis attraktiv ist, zeigt der Cashflow nach Finanzierung, ob deine konkrete Darlehensstruktur tragfähig ist. Beide Antworten sind wichtig, aber sie beantworten unterschiedliche Fragen.",
+        ],
+      },
+    ],
+    faqs: [
+      {
+        question: "Wie lautet die einfache Mietrendite-Formel?",
+        answer: "Die Bruttomietrendite ist Jahresnettomiete geteilt durch Kaufpreis mal 100.",
+      },
+      {
+        question: "Was ist der Unterschied zwischen Brutto- und Nettomietrendite?",
+        answer: "Die Bruttomietrendite nutzt Miete vor Kosten. Die Nettomietrendite zieht laufende Eigentümerkosten ab und setzt den operativen Cashflow ins Verhältnis zu den Kosten.",
+      },
+      {
+        question: "Sollte ich Erwerbsnebenkosten einbeziehen?",
+        answer: "Für eine Kaufentscheidung ja. Erwerbsnebenkosten sind reales gebundenes Kapital und gehören in die Kostenbasis.",
+      },
+      {
+        question: "Kann man Mietrendite nach Finanzierung berechnen?",
+        answer: "Man kann gehebelte Renditen berechnen, aber das ist eher Eigenkapitalrendite oder ROI. Mietrendite ist vor Finanzierung am besten vergleichbar.",
+      },
+    ],
+    related: ["what-is-a-good-rental-yield", "rental-property-cash-flow", "cap-rate-vs-roi"],
+  },
+  {
+    id: "rental-property-cash-flow",
+    locale: "de",
+    slug: "cashflow-vermietungsimmobilie",
+    title: "Cashflow bei Vermietungsimmobilien erklärt",
+    description: "Cashflow bei Vermietungsimmobilien mit Beispielen zu Miete, laufenden Kosten, Finanzierung, Break-even-Miete und Risiko erklärt.",
+    intro: "Der Cashflow einer Vermietungsimmobilie ist der Betrag, der nach Mieteinnahmen und immobilienbezogenen Ausgaben übrig bleibt oder fehlt. Bei finanzierten Immobilien ist die entscheidende praktische Frage oft, ob der Cashflow nach Zins und Tilgung positiv bleibt. Cashflow ersetzt nicht Mietrendite oder ROI, zeigt aber, ob sich das Investment monatlich selbst trägt.",
+    sections: [
+      {
+        title: "Starte mit der Miete",
+        paragraphs: [
+          "Die erste Eingabe ist die Miete. Nutze die aktuelle Nettomiete, wenn die Immobilie vermietet ist, oder eine konservative Marktmiete, wenn sie leer steht. Wenn Betriebskosten teilweise auf Mieter umgelegt werden, trenne gezahlte Kosten von tatsächlichen Eigentümerkosten.",
+          "Beispiel: Eine Wohnung bringt 1.150 Nettomiete pro Monat, also 13.800 pro Jahr. Der Eigentümer zahlt 180 monatliche Nebenkosten, davon sind 120 umlagefähig. Dann belasten nur 60 den Eigentümer-Cashflow. Diese Trennung ist zentral.",
+          "Verlasse dich nicht nur auf optimistische Mietannahmen. Wenn der Deal von einer Mietsteigerung abhängt, rechne die aktuelle Situation und das verbesserte Szenario getrennt.",
+        ],
+      },
+      {
+        title: "Ziehe laufende Kosten ab",
+        paragraphs: [
+          "Laufende Kosten können nicht umlagefähige Betriebskosten, Instandhaltung, Verwaltung, Versicherung, Leerstandsreserve und weitere wiederkehrende Ausgaben umfassen. Manche Kosten fallen monatlich an, andere sollten auf Jahresbasis umgelegt werden.",
+          "Angenommen, die monatliche Nettomiete beträgt 1.150. Nicht umlagefähige Kosten liegen bei 60, Instandhaltung und Verwaltung bei 140, Leerstandsreserve bei 50. Der operative Cashflow vor Finanzierung beträgt 900 pro Monat oder 10.800 pro Jahr.",
+          "Dieses Ergebnis zeigt, ob die Immobilie vor Darlehen Überschuss erwirtschaftet. Es ist auch die Grundlage für den Vergleich mit Mietrendite oder Cap Rate.",
+        ],
+      },
+      {
+        title: "Ziehe Finanzierungskosten ab",
+        paragraphs: [
+          "Bei einer finanzierten Immobilie werden Zins und Tilgung abgezogen, um den Cashflow nach Finanzierung zu ermitteln. Zinsen sind Finanzierungskosten, Tilgung baut Eigenkapital auf, beide belasten aber die monatliche Liquidität.",
+          "Wenn die Kreditrate 820 pro Monat beträgt, hat das Beispielobjekt plus 80 monatlichen Cashflow. Bei 1.020 Kreditrate liegt der Cashflow bei minus 120. Auf ein Jahr gesehen ist das der Unterschied zwischen 960 Überschuss und 1.440 Zuschussbedarf.",
+          "Negativer Cashflow ist nicht automatisch ein Ausschlusskriterium. Er muss aber geplant, bezahlbar und durch andere Teile der Investmentthese begründet sein.",
+        ],
+      },
+      {
+        title: "Nutze die Break-even-Miete als Risikoprüfung",
+        paragraphs: [
+          "Die Break-even-Miete zeigt, welche Miete nötig ist, um laufende Kosten und Finanzierung zu decken. Wenn laufende Kosten 250 pro Monat und die Kreditrate 820 betragen, liegt die Break-even-Miete bei 1.070. Bei 1.150 Marktmiete beträgt der Puffer nur 80. Bei 1.300 Marktmiete sind es 230.",
+          "Liegt die Break-even-Miete nahe an der realistischen Marktmiete oder darüber, hat der Deal wenig Spielraum für Leerstand, Reparaturen oder Zinsänderungen. Diese Kennzahl zeigt schnell, wie fragil ein Investment ist.",
+          "Cashflow-Analyse funktioniert am besten zusammen mit Mietrendite, Cap Rate und Sensitivitäten. Gemeinsam zeigen sie Einkommensqualität, Finanzierungsdruck und Abwärtsrisiko.",
+        ],
+      },
+      {
+        title: "Plane unregelmäßige Ausgaben ein",
+        paragraphs: [
+          "Viele Cashflow-Rechnungen scheitern an Kosten, die nicht jeden Monat auftreten. Heizung, Leerstand, Versicherungsanstieg, Sonderumlage oder größere Reparaturen können ein Jahr kleiner Überschüsse aufzehren.",
+          "Wenn ein Objekt nur 50 positiven Cashflow pro Monat zeigt, entspricht eine Reparatur von 1.200 bereits zwei Jahren Überschuss. Das macht die Immobilie nicht automatisch schlecht, aber Rücklagen und Risikotoleranz müssen dazu passen.",
+        ],
+      },
+      {
+        title: "Teste den monatlichen Cashflow",
+        paragraphs: [
+          "Eine Cashflow-Rechnung sollte nicht beim Basisszenario enden. Prüfe eine niedrigere Miete, höhere Kosten und eine stärkere Finanzierungsbelastung. Diese einfachen Szenarien zeigen, ob echter Puffer vorhanden ist oder ob der Deal nur bei idealen Annahmen funktioniert.",
+          "Ein Objekt mit plus 80 pro Monat kann bei 5% niedrigerer Miete auf minus 35 fallen. Steigt die Instandhaltung von 60 auf 150, kann es minus 70 werden. Treten beide Effekte gemeinsam auf, benötigt der Eigentümer trotz positivem Basisszenario über 1.000 pro Jahr Zuschuss.",
+          "Nicht jede Immobilie braucht hohen positiven Cashflow. Aber der Investor sollte vor dem Kauf wissen, wie groß ein möglicher Fehlbetrag ist und genügend Rücklagen halten.",
+        ],
+      },
+      {
+        title: "Verbinde Cashflow mit Rendite",
+        paragraphs: [
+          "Cashflow beschreibt Liquidität, nicht die gesamte Rendite. Tilgung, steuerliche Behandlung und Wertentwicklung können das langfristige Ergebnis verbessern, auch wenn der monatliche Cashflow knapp ist. Schwacher Cashflow erzeugt trotzdem Druck, weil Fehlbeträge aus anderem Einkommen finanziert werden müssen.",
+          "Eine ausgewogene Analyse betrachtet Cashflow als einen Baustein. Nutze ihn zusammen mit Mietrendite zur Beurteilung der Einkommensqualität und mit Cap Rate vs ROI, um Objektleistung und hebelgetriebene Eigenkapitalrendite zu trennen.",
+        ],
+      },
+    ],
+    faqs: [
+      {
+        question: "Was ist Cashflow bei einer Vermietungsimmobilie?",
+        answer: "Cashflow ist der Überschuss oder Fehlbetrag nach Mieteinnahmen, laufenden Kosten und bei finanzierten Objekten nach Zins und Tilgung.",
+      },
+      {
+        question: "Zählt Tilgung als Ausgabe?",
+        answer: "Für den monatlichen Cashflow ja, weil sie Liquidität bindet. Für die Vermögensanalyse sollte Tilgung separat gezeigt werden, weil sie Eigenkapital aufbaut.",
+      },
+      {
+        question: "Was ist die Break-even-Miete?",
+        answer: "Die Break-even-Miete ist die Miete, die nötig ist, um laufende Kosten und Finanzierung zu decken. Sie zeigt den Sicherheitspuffer.",
+      },
+      {
+        question: "Ist negativer Cashflow immer schlecht?",
+        answer: "Nicht immer, aber er erhöht die Anforderungen. Der Fehlbetrag sollte bezahlbar, geplant und durch Tilgung, Lagequalität oder realistische Entwicklung begründet sein.",
+      },
+    ],
+    related: ["how-to-analyze-an-investment-property", "rental-yield-formula", "cap-rate-vs-roi"],
+  },
+];
 
-export function getGuideArticle(slug: string) {
-  return guideArticles.find((article) => article.slug === slug);
+export const allGuideArticles = [...guideArticles, ...germanGuideArticles];
+
+export const guideIndexContent: Record<Locale, { title: string; description: string; intro: string; ctaTitle: string; ctaText: string; ctaLabel: string; eyebrow: string; calculatorLabel: string; guidesLabel: string }> = {
+  en: {
+    title: "Investment Property Guides",
+    description: "Plain-English guides to rental yield, cash flow, cap rate, ROI and investment property analysis, with practical examples for comparing rental deals.",
+    intro: "Start with the full investment property analysis guide, then use the rental yield, cash flow, cap rate and ROI articles to check specific parts of a deal. When you are ready to test your own numbers, open the",
+    ctaTitle: "Analyze a rental property",
+    ctaText: "Use the calculator to turn these concepts into property-specific cash flow, rental yield and financing numbers.",
+    ctaLabel: "Open the calculator",
+    eyebrow: "Guides",
+    calculatorLabel: "Calculator",
+    guidesLabel: "Guides",
+  },
+  de: {
+    title: "Ratgeber für Immobilieninvestments",
+    description: "Praxisnahe Ratgeber zu Mietrendite, Cashflow, Cap Rate, ROI, Finanzierung und Analyse von Vermietungsimmobilien.",
+    intro: "Starte mit der vollständigen Analyse eines Immobilieninvestments und nutze danach die Ratgeber zu Mietrendite, Cashflow, Cap Rate und ROI, um einzelne Teile eines Deals zu prüfen. Wenn du deine eigenen Zahlen testen willst, öffne den",
+    ctaTitle: "Vermietungsimmobilie analysieren",
+    ctaText: "Nutze den Rechner, um aus diesen Konzepten konkrete Cashflow-, Mietrendite- und Finanzierungszahlen für dein Objekt zu machen.",
+    ctaLabel: "Rechner öffnen",
+    eyebrow: "Ratgeber",
+    calculatorLabel: "Rechner",
+    guidesLabel: "Ratgeber",
+  },
+};
+
+export const guideIndexTitle = guideIndexContent.en.title;
+export const guideIndexDescription = guideIndexContent.en.description;
+
+export function guideIndexPath(locale: Locale) {
+  return locale === "de" ? "/ratgeber" : "/guides";
+}
+
+export function getGuideArticles(locale: Locale) {
+  return locale === "de" ? germanGuideArticles : guideArticles;
+}
+
+export function getGuideArticle(locale: Locale, slug: string) {
+  return getGuideArticles(locale).find((article) => article.slug === slug);
+}
+
+export function getGuideArticleById(locale: Locale, id: GuideId) {
+  return getGuideArticles(locale).find((article) => article.id === id);
 }
 
 export function getRelatedGuides(article: GuideArticle) {
   return article.related
-    .map((slug) => getGuideArticle(slug))
+    .map((id) => getGuideArticleById(article.locale, id))
     .filter((related): related is GuideArticle => Boolean(related));
+}
+
+export function guidePath(article: GuideArticle) {
+  return `/${article.locale}/${article.slug}`;
+}
+
+export function guideAlternatesById(id: GuideId) {
+  const de = getGuideArticleById("de", id);
+  const en = getGuideArticleById("en", id);
+
+  return {
+    de: de ? `/${de.locale}/${de.slug}` : undefined,
+    en: en ? `/${en.locale}/${en.slug}` : undefined,
+  };
 }

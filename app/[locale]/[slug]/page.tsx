@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import GuideArticlePage from "../../components/GuideArticlePage";
-import { getGuideArticle, guideArticles } from "../../lib/guides";
+import { allGuideArticles, getGuideArticle, getGuideArticleById, guideAlternatesById } from "../../lib/guides";
 import { absoluteLocalizedUrl, isLocale } from "../../lib/i18n";
 
 type GuidePageProps = {
@@ -9,8 +9,8 @@ type GuidePageProps = {
 };
 
 export function generateStaticParams() {
-  return guideArticles.map((article) => ({
-    locale: "en",
+  return allGuideArticles.map((article) => ({
+    locale: article.locale,
     slug: article.slug,
   }));
 }
@@ -18,24 +18,29 @@ export function generateStaticParams() {
 export async function generateMetadata({ params }: GuidePageProps): Promise<Metadata> {
   const { locale: rawLocale, slug } = await params;
 
-  if (rawLocale !== "en") {
+  if (!isLocale(rawLocale)) {
     return {};
   }
 
-  const article = getGuideArticle(slug);
+  const article = getGuideArticle(rawLocale, slug);
 
   if (!article) {
     return {};
   }
 
+  const alternates = guideAlternatesById(article.id);
+  const deArticle = getGuideArticleById("de", article.id);
+  const enArticle = getGuideArticleById("en", article.id);
+
   return {
     title: article.title,
     description: article.description,
     alternates: {
-      canonical: absoluteLocalizedUrl("en", `/${article.slug}`),
+      canonical: absoluteLocalizedUrl(article.locale, `/${article.slug}`),
       languages: {
-        en: absoluteLocalizedUrl("en", `/${article.slug}`),
-        "x-default": absoluteLocalizedUrl("en", `/${article.slug}`),
+        ...(alternates.de ? { de: absoluteLocalizedUrl("de", `/${deArticle?.slug}`) } : {}),
+        ...(alternates.en ? { en: absoluteLocalizedUrl("en", `/${enArticle?.slug}`) } : {}),
+        ...(enArticle ? { "x-default": absoluteLocalizedUrl("en", `/${enArticle.slug}`) } : {}),
       },
     },
   };
@@ -44,11 +49,11 @@ export async function generateMetadata({ params }: GuidePageProps): Promise<Meta
 export default async function GuidePage({ params }: GuidePageProps) {
   const { locale: rawLocale, slug } = await params;
 
-  if (!isLocale(rawLocale) || rawLocale !== "en") {
+  if (!isLocale(rawLocale)) {
     notFound();
   }
 
-  const article = getGuideArticle(slug);
+  const article = getGuideArticle(rawLocale, slug);
 
   if (!article) {
     notFound();

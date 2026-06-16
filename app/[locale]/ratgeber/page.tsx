@@ -4,26 +4,26 @@ import { notFound } from "next/navigation";
 import { getGuideArticles, guideIndexContent, guidePath } from "../../lib/guides";
 import { absoluteLocalizedUrl, isLocale } from "../../lib/i18n";
 
-type GuidesPageProps = {
+type RatgeberPageProps = {
   params: Promise<{ locale: string }>;
 };
 
 export function generateStaticParams() {
-  return [{ locale: "en" }];
+  return [{ locale: "de" }];
 }
 
-export async function generateMetadata({ params }: GuidesPageProps): Promise<Metadata> {
+export async function generateMetadata({ params }: RatgeberPageProps): Promise<Metadata> {
   const { locale: rawLocale } = await params;
 
-  if (rawLocale !== "en") {
+  if (rawLocale !== "de") {
     return {};
   }
 
   return {
-    title: guideIndexContent.en.title,
-    description: guideIndexContent.en.description,
+    title: guideIndexContent.de.title,
+    description: guideIndexContent.de.description,
     alternates: {
-      canonical: absoluteLocalizedUrl("en", "/guides"),
+      canonical: absoluteLocalizedUrl("de", "/ratgeber"),
       languages: {
         de: absoluteLocalizedUrl("de", "/ratgeber"),
         en: absoluteLocalizedUrl("en", "/guides"),
@@ -33,23 +33,23 @@ export async function generateMetadata({ params }: GuidesPageProps): Promise<Met
   };
 }
 
-export default async function GuidesPage({ params }: GuidesPageProps) {
+export default async function RatgeberPage({ params }: RatgeberPageProps) {
   const { locale: rawLocale } = await params;
 
-  if (!isLocale(rawLocale) || rawLocale !== "en") {
+  if (!isLocale(rawLocale) || rawLocale !== "de") {
     notFound();
   }
 
-  const guideArticles = getGuideArticles("en");
-  const content = guideIndexContent.en;
+  const guideArticles = getGuideArticles("de");
+  const content = guideIndexContent.de;
 
   return (
     <main className="min-h-screen bg-[#f4f2ed] text-[#171717]">
       <section className="mx-auto w-full max-w-6xl px-4 py-8 sm:px-6">
         <nav className="mb-6 flex flex-wrap gap-4 text-sm font-semibold text-[#2f6a57]">
-          <Link href="/en">{content.calculatorLabel}</Link>
-          <Link href="/en/guides">{content.guidesLabel}</Link>
-          <Link href="/de/ratgeber">Deutsche Version</Link>
+          <Link href="/de">{content.calculatorLabel}</Link>
+          <Link href="/de/ratgeber">{content.guidesLabel}</Link>
+          <Link href="/en/guides">English version</Link>
         </nav>
 
         <header className="border-b border-[#d8d3c9] pb-6">
@@ -58,8 +58,8 @@ export default async function GuidesPage({ params }: GuidesPageProps) {
           <p className="mt-4 max-w-3xl text-lg leading-8 text-[#5f5b52]">{content.description}</p>
           <p className="mt-4 max-w-3xl text-base leading-7 text-[#5f5b52]">
             {content.intro}{" "}
-            <Link className="font-semibold text-[#2f6a57]" href="/en">
-              rental property calculator
+            <Link className="font-semibold text-[#2f6a57]" href="/de">
+              Immobilienrechner
             </Link>
             .
           </p>
@@ -81,7 +81,7 @@ export default async function GuidesPage({ params }: GuidesPageProps) {
         <section className="mt-8 rounded-lg bg-[linear-gradient(135deg,#10211e,#132420)] p-5 text-white">
           <h2 className="text-2xl font-semibold">{content.ctaTitle}</h2>
           <p className="mt-2 leading-7 text-[#d7e3dd]">{content.ctaText}</p>
-          <Link className="mt-4 inline-flex rounded-md bg-[#edf5f1] px-4 py-2 text-sm font-semibold text-[#2f6a57]" href="/en">
+          <Link className="mt-4 inline-flex rounded-md bg-[#edf5f1] px-4 py-2 text-sm font-semibold text-[#2f6a57]" href="/de">
             {content.ctaLabel}
           </Link>
         </section>
