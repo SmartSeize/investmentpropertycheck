@@ -11,13 +11,13 @@ export default function GuideArticlePage({ article }: GuideArticlePageProps) {
 
   return (
     <main className="min-h-screen bg-[#f4f2ed] text-[#171717]">
-      <article className="mx-auto w-full max-w-3xl px-4 py-8 sm:px-6">
+      <article className="mx-auto w-full max-w-5xl px-4 py-8 sm:px-6">
         <nav className="mb-6 flex flex-wrap gap-4 text-sm font-semibold text-[#2f6a57]">
           <Link href="/en">Calculator</Link>
           <Link href="/en/guides">Guides</Link>
         </nav>
 
-        <header className="border-b border-[#d8d3c9] pb-6">
+        <header className="max-w-4xl border-b border-[#d8d3c9] pb-6">
           <p className="mb-2 text-xs font-semibold uppercase tracking-[0.18em] text-[#2f6a57]">Investment Property Guide</p>
           <h1 className="text-4xl font-semibold leading-tight sm:text-5xl">{article.title}</h1>
           <p className="mt-4 text-lg leading-8 text-[#5f5b52]">{article.intro}</p>
@@ -34,7 +34,7 @@ export default function GuideArticlePage({ article }: GuideArticlePageProps) {
           </p>
         </header>
 
-        <div className="mt-8 space-y-8 rounded-lg border border-[#d8d3c9] bg-white p-5 text-base leading-7 text-[#4d4a44]">
+        <div className="mt-8 max-w-4xl space-y-8 rounded-lg border border-[#d8d3c9] bg-white p-5 text-base leading-7 text-[#4d4a44]">
           {article.sections.map((section) => (
             <section key={section.title} className="border-t border-[#d8d3c9] pt-6 first:border-t-0 first:pt-0">
               <h2 className="text-2xl font-semibold text-[#2f6a57]">{section.title}</h2>
@@ -56,7 +56,7 @@ export default function GuideArticlePage({ article }: GuideArticlePageProps) {
 
         <section className="mt-8 border-t border-[#d8d3c9] pt-6">
           <h2 className="text-2xl font-semibold">FAQ</h2>
-          <div className="mt-4 space-y-3">
+          <div className="mt-4 grid gap-3 lg:grid-cols-2">
             {article.faqs.map((faq) => (
               <section key={faq.question} className="rounded-lg border border-[#d8d3c9] bg-white p-4">
                 <h3 className="text-base font-semibold text-[#2f6a57]">{faq.question}</h3>
@@ -69,7 +69,7 @@ export default function GuideArticlePage({ article }: GuideArticlePageProps) {
         {relatedArticles.length ? (
           <section className="mt-8 border-t border-[#d8d3c9] pt-6">
             <h2 className="text-2xl font-semibold">Related guides</h2>
-            <div className="mt-4 grid gap-3 sm:grid-cols-2">
+            <div className="mt-4 grid gap-3 lg:grid-cols-3">
               {relatedArticles.map((related) => (
                 <Link
                   key={related.slug}

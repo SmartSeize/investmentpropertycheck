@@ -41,7 +41,7 @@ export default async function GuidesPage({ params }: GuidesPageProps) {
 
   return (
     <main className="min-h-screen bg-[#f4f2ed] text-[#171717]">
-      <section className="mx-auto w-full max-w-5xl px-4 py-8 sm:px-6">
+      <section className="mx-auto w-full max-w-6xl px-4 py-8 sm:px-6">
         <nav className="mb-6 flex flex-wrap gap-4 text-sm font-semibold text-[#2f6a57]">
           <Link href="/en">Calculator</Link>
           <Link href="/en/guides">Guides</Link>
@@ -60,7 +60,7 @@ export default async function GuidesPage({ params }: GuidesPageProps) {
           </p>
         </header>
 
-        <div className="mt-8 grid gap-4 md:grid-cols-2">
+        <div className="mt-8 grid gap-4 md:grid-cols-2 xl:grid-cols-3">
           {guideArticles.map((article) => (
             <Link
               key={article.slug}

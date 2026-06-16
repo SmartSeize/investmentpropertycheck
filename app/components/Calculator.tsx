@@ -39,6 +39,38 @@ type YieldYear = {
 
 const projectionYears = 30;
 const copyrightYear = 2026;
+const englishGuideLinks = [
+  {
+    href: "/en/guides",
+    title: "All investment property guides",
+    text: "Browse the full guide library for rental yield, cash flow, cap rate, ROI and property analysis.",
+  },
+  {
+    href: "/en/how-to-analyze-an-investment-property",
+    title: "How to Analyze an Investment Property",
+    text: "Learn a practical step-by-step framework for reviewing price, rent, costs, financing and risk.",
+  },
+  {
+    href: "/en/what-is-a-good-rental-yield",
+    title: "What Is a Good Rental Yield?",
+    text: "Understand gross yield, operating yield and how market context changes what good means.",
+  },
+  {
+    href: "/en/cap-rate-vs-roi",
+    title: "Cap Rate vs ROI",
+    text: "Compare property-level income metrics with investor-level return metrics after financing.",
+  },
+  {
+    href: "/en/rental-yield-formula",
+    title: "Rental Yield Formula",
+    text: "See the gross and net rental yield formulas with examples and common calculation mistakes.",
+  },
+  {
+    href: "/en/rental-property-cash-flow",
+    title: "Rental Property Cash Flow Explained",
+    text: "Learn how rent, operating costs, financing and break-even rent affect monthly cash flow.",
+  },
+];
 
 const fieldGroups: FieldGroup[] = [
   { id: "kauf", fields: [{ key: "kaufpreis", suffix: "eur", step: 5000, min: 0 }, { key: "nebenkosten", suffix: "percent", step: 0.5, min: 0 }, { key: "wohnflaeche", suffix: "sqm", step: 1, min: 0 }] },
@@ -413,6 +445,8 @@ export default function Calculator({ locale }: { locale: Locale }) {
           />
         </div>
 
+        {locale === "en" ? <GuideSection /> : null}
+
         <SeoSection title={seo.title} intro={seo.intro} items={seo.items} />
 
         <Footer locale={locale} />
@@ -459,6 +493,27 @@ function seoText(locale: Locale) {
           },
         ],
   };
+}
+
+function GuideSection() {
+  return (
+    <section className="mt-5 border-t border-[#d8d3c9] pt-5">
+      <div className="max-w-4xl">
+        <h2 className="text-2xl font-semibold">Learn how to analyze investment properties</h2>
+        <p className="mt-2 text-base leading-7 text-[#5f5b52]">
+          Use these practical guides to understand rental yield, cash flow, cap rate, ROI and financing before comparing properties.
+        </p>
+      </div>
+      <div className="mt-4 grid gap-3 sm:grid-cols-2 xl:grid-cols-3">
+        {englishGuideLinks.map((guide) => (
+          <Link key={guide.href} className="rounded-lg border border-[#d8d3c9] bg-white p-4 transition hover:border-[#2f6a57]" href={guide.href}>
+            <h3 className="text-base font-semibold text-[#2f6a57]">{guide.title}</h3>
+            <p className="mt-2 text-sm leading-6 text-[#5f5b52]">{guide.text}</p>
+          </Link>
+        ))}
+      </div>
+    </section>
+  );
 }
 
 function MainLine({ label, value, hint }: { label: string; value: string; hint?: string }) {
