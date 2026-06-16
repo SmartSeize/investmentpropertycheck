@@ -663,11 +663,9 @@ function Footer({ locale }: { locale: Locale }) {
     <footer className="mt-5 flex flex-col gap-2 border-t border-[#d8d3c9] py-4 text-sm text-[#5f5b52] sm:flex-row sm:items-center sm:justify-between">
       <p>© {copyrightYear} {de ? "Immobilienrendite-Rechner" : "Rental Property Calculator"}</p>
       <nav className="flex gap-4">
-        {!de ? (
-          <Link className="transition hover:text-[#2f6a57]" href="/en/guides">
-            Guides
-          </Link>
-        ) : null}
+        <Link className="transition hover:text-[#2f6a57]" href={de ? "/de/ratgeber" : "/en/guides"}>
+          {de ? "Ratgeber" : "Guides"}
+        </Link>
         <Link className="transition hover:text-[#2f6a57]" href={`/${locale}/impressum`}>
           {de ? "Impressum" : "Legal Notice"}
         </Link>
